@@ -1,0 +1,4 @@
+```shell
+$ node product.js
+```
+
