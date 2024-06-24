@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 /**
  * @swagger
- *  /test:
+ *  /swaagerTest:
  *    get:
  *      tags:
  *      - test
@@ -12,7 +12,7 @@ const router = require('express').Router()
  *      parameters:
  *        - in: query
  *          name: value
- *          required: true
+ *          required: false
  *          schema:
  *            type: integer
  *            description: swaggerTest
@@ -20,19 +20,17 @@ const router = require('express').Router()
  *       200:
  *        description: 성공결과
  */
-router.route('/:category/')
-.get(async function(req, res){
-    console.log(req);
+router.route('/:category/').get(async function(req, res){
     const category = req.params.category;
     res.status(200).send(category);
 })
 
 /**
  * @swagger
- * /read-csv:
+ * /readCsv:
  *   post:
  *     tags:
- *       - read-csv
+ *       - readCsv
  *     description: 파일 읽기
  *     consumes:
  *       - multipart/form-data
@@ -57,18 +55,12 @@ router.route('/:category/')
  *                   ok:
  *                     type: boolean
  *                   result:
- *                     type: object
+ *                     type: string
  *                     example:
- *                        [
- *                            ['127.622035', '34.817509'],
- *                            ['127.622035', '34.817509'],
- *                            ['127.622035', '34.817509'],
- *                        ] 
+ *                        response ok
  *             
  */
-router.route('/:file/')
-.get(async function(req, res){
-    console.log(req);
+router.route('/:file/').get(async function(req, res){
     const file = req.params.file;
     res.status(200).send(file);
 })
