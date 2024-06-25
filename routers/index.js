@@ -43,7 +43,7 @@ router.route('/:category/').get(async function(req, res){
  *               list.csv:
  *                 type: string
  *                 format: binary
- *                 description: CSV 파일을 업로드합니다.
+ *                 description: csv 파일을 업로드합니다.
  *     responses:
  *       200:
  *         description: 파일 업로드 성공

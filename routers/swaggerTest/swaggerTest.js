@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
 
 	for (let i = 0; i < 100; i++) {
 		await sendProcuder(i, req.query)
-		console.log(req.query)
 	}
 
 	res.send(req.query)
