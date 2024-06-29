@@ -66,4 +66,46 @@ router.route('/:file/').get(async function(req, res){
 })
 
 
+/**
+ * @swagger
+ * /convertToCsv:
+ *   post:
+ *     tags:
+ *       - convertToCsv
+ *     description: 파일 읽기
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               APK.xlsx:
+ *                 type: string
+ *                 format: binary
+ *                 description: csv 파일을 업로드합니다.
+ *     responses:
+ *       200:
+ *         description: 파일 업로드 성공
+ *         content:
+ *          application/json:
+ *            schema:
+ *               type: object
+ *               properties:
+ *                   ok:
+ *                     type: boolean
+ *                   result:
+ *                     type: string
+ *                     example:
+ *                        response ok
+ *             
+ */
+router.route('/:file/').get(async function(req, res){
+    const file = req.params.file;
+    res.status(200).send(file);
+})
+
+
+
 module.exports = router

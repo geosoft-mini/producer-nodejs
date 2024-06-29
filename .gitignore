@@ -190,6 +190,7 @@ ehthumbs_vista.db
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 /csv
+*.csv
 
 # Windows Installer files
 *.cab
