@@ -8,9 +8,9 @@ const { swaggerUi, specs } = require("./swagger/swagger")
 const convertToCsv = require('./routers/convertToCsv/convertToCsv')
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
-app.use('/swaagerTest/', swaggerTest)
-app.use('/readCsv/', readCsv)
-app.use('/convertToCsv', convertToCsv)
+app.use('/test', swaggerTest)
+app.use('/csv', readCsv)
+app.use('/xlsx-csv', convertToCsv)
 
 app.listen(port, async () => {
 	console.log(`app listening on port ${port}`)
