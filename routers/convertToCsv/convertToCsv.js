@@ -26,7 +26,7 @@ router.post('/', upload.single('APK.xlsx'), async (req, res, next) => {
   const files = req.file.buffer
 	createFile(files)
    
-	res.send(csvLines)
+	res.send('response ok')
 })
 
 module.exports = router;

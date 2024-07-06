@@ -17,24 +17,27 @@ const sendProcuder = async (topic, result, partitionIndex) => {
 	})
 }
 
-
-router.post('/', upload.single('list.csv'), async (req, res, next) => {
-
-	const files = req.file.buffer.toString('utf-8')
-	const rows = files.split('\r\n')
-	rows.shift()
-
-	const splitNum = 100
-
+const sendData = async (rows) => {
+	const pattern = ','
 	for (let i = 0; i < rows.length / splitNum; i++) {
 		const result = []
 		for (let j = splitNum * i; j < splitNum * (i + 1); j++){
-			try { result.push(rows[j].split(',')) } catch (error) {}
-		}	
+			try { result.push(rows[j].split(pattern)) } catch (error) {}
+		}
 		await sendProcuder(topic, result, i)
 	}
+}
 
-	res.send('response ok')
+router.post('/', upload.single('list.csv'), async (req, res, next) => {
+
+	const pattern = '\n'
+	const files = req.file.buffer.toString('utf-8')
+	const rows = files.split(pattern)
+	rows.shift()
+	const splitNum = 100
+	sendData(rows)
+
+	res.send(files)
 })
 
 module.exports = router;
