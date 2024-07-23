@@ -16,7 +16,7 @@ function createFile(files) {
   const ws = workBook.Sheets[sheetName]
 
   const csv = xlsx.utils.sheet_to_csv(ws)
-  const csvLines = csv.replace(regex, '')
+  const csvLines = csv.replace(regex, '').trim()
   fs.writeFileSync(outputFilename, csvLines)
 }
 
@@ -25,7 +25,6 @@ router.post('/', upload.single('APK.xlsx'), async (req, res, next) => {
 
   const files = req.file.buffer
 	createFile(files)
-   
 	res.send('response ok')
 })
 
