@@ -41,23 +41,23 @@ const sendData = async (rows, splitNum) => {
 	}
 }
 
-function createFile(files) {
+function convertToCSV(files) {
 	const workBook = xlsx.read(files, {type: 'buffer'})
 	const sheetName = workBook.SheetNames[1]
 	const ws = workBook.Sheets[sheetName]
 
 	const csv = xlsx.utils.sheet_to_csv(ws)
 	const csvLines = csv.replace(regex, '').trim()
-  return csvLines
+  	return csvLines
 }
 
 router.post('/', upload.single('APK.xlsx'), async (req, res, next) => {
 	const regx = '\n'
 	const splitNum = 100
 	const files = req.file.buffer
-  const csvLines = createFile(files)
+  	const csvLines = convertToCSV(files)
 	const rows = csvLines.split(regx)
-  rows.shift()
+  	rows.shift()
 	sendData(rows, splitNum)
 	res.send(files)
 })
