@@ -5,8 +5,12 @@ const { producer } = require('../../producer/producer')
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
-const topic = 'overspeed-detail-address'
 
+const path = require('path')
+const xlsx = require('xlsx')
+const regex = /,{7,}/g
+
+const topic = 'overspeed-detail-address'
 
 const sendProcuder = async (topic, result, partitionIndex) => {
 	await producer.send({
@@ -37,15 +41,26 @@ const sendData = async (rows, splitNum) => {
 	}
 }
 
-router.post('/', upload.single('list.csv'), async (req, res, next) => {
+function createFile(files) {
+	const workBook = xlsx.read(files, {type: 'buffer'})
+	const sheetName = workBook.SheetNames[1]
+	const ws = workBook.Sheets[sheetName]
+
+	const csv = xlsx.utils.sheet_to_csv(ws)
+	const csvLines = csv.replace(regex, '').trim()
+  return csvLines
+}
+
+router.post('/', upload.single('APK.xlsx'), async (req, res, next) => {
 	const regx = '\n'
 	const splitNum = 100
-	const files = req.file.buffer.toString('utf-8')
-	const rows = files.split(regx)
-	rows.shift()
+	const files = req.file.buffer
+  const csvLines = createFile(files)
+	const rows = csvLines.split(regx)
+  rows.shift()
 	sendData(rows, splitNum)
-
 	res.send(files)
 })
+
 
 module.exports = router;
