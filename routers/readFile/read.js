@@ -59,6 +59,7 @@ router.post('/', upload.single('APK.xlsx'), async (req, res, next) => {
 	const rows = csvLines.split(regx)
   	rows.shift()
 	sendData(rows, splitNum)
+	res.send('response ok')
 })
 
 
