@@ -2,7 +2,7 @@ const { Kafka } = require('kafkajs')
 const { Partitioners } = require('kafkajs')
 
 const kafka = new Kafka({
-	clientId: 'test-group',
+	clientId: 'test-group1',
 	brokers: ['localhost:9092']
 })
 
